@@ -1,4 +1,3 @@
-import fire
 from utils.decorators import retry
 from playwright.async_api import async_playwright, Page, TimeoutError
 from tqdm.asyncio import tqdm
@@ -7,6 +6,8 @@ import pandas as pd
 import datetime
 import asyncio
 import logging
+import fire
+
 
 # Logger setup
 logger_name = "crawl_naver_blogs"

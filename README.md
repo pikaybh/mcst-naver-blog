@@ -91,10 +91,6 @@ python crawl_naver_blogs.py --max_pages=20 --headless=False
 
 This will scrape 20 pages from Naver's blog theme section and run the browser in non-headless mode (so you can see the browser window).
 
-## Logging
-
-The scraper logs its progress and any errors that occur during scraping into a log file located in the `logs/` directory. The log file is named `crawl_naver_blogs.log`.
-
 ## Output
 
 The scraped blog content is saved into Excel files in the `output/` directory. The file name will include a timestamp to help distinguish between different runs.
@@ -104,14 +100,6 @@ Example output:
 ```
 output/blog_contents_20240926_184237.xlsx
 ```
-
-## Retry Mechanism
-
-The scraper uses a retry mechanism to handle potential failures (such as timeouts or network issues). It will retry the scraping operation up to 10 times for each blog post before giving up.
-
-## License
-
-This project is licensed under the MIT License.
 
 ## Author
 

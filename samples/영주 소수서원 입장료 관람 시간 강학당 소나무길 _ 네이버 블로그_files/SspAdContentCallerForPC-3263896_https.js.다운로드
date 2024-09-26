@@ -1,0 +1,241 @@
+var SspAdContentCallerForPC = $Class({
+    $init: function () {
+        this._adContentLocationCode = "";
+        this.adDivId = {
+            middle1: 'ssp-adcontent-1', // 본문 중간 30% 지점 광고 div id
+            middle2: 'ssp-adcontent-2', // 본문 중간 60% 지점 광고 div id
+            bottom: 'ssp-adcontent', // 하단 광고 div id
+        };
+    },
+
+    renderAdContent: function (tagData, adContentLocation) {
+        // 본문광고 위치 선택: 중간
+        if (adContentLocation === "1") {
+            this._adContentLocationCode = "middle";
+            var adSlotInfo = this._appendMiddleAdvertiseDiv30(tagData, this.adDivId.middle1, gAdContentUnitIdForPC, 1);
+            if (adSlotInfo) {
+                this._renderAdForDuplication([adSlotInfo]);
+            }
+        }
+
+        // 본문광고 위치 선택: 하단
+        else if (adContentLocation === "2") {
+            this._adContentLocationCode = "bottom";
+            this._appendBottomAdvertiseDiv(tagData, this.adDivId.bottom, gAdContentUnitIdForPC);
+        }
+
+        // 본문광고 위치 선택: 모두(중간/하단)
+        else {
+            this._adContentLocationCode = "both";
+            this._appendBottomAdvertiseDiv(tagData, this.adDivId.bottom, gAdContentUnitIdForPC);
+
+            var contentEl = $$.getSingle(".se-viewer");
+            if (typeof contentEl != "undefined" && contentEl.offsetHeight > 2700) { // 본문 길이 2700px 이상
+                var adSlotList = [];
+                // 본문 30% 지점에 광고 노출
+                var adSlotInfo1 = this._appendMiddleAdvertiseDiv30(tagData, this.adDivId.middle1, gAdContentDaUnitIdForPc, 2);
+                if (adSlotInfo1) {
+                    adSlotList.push(adSlotInfo1);
+                }
+
+                // 본문 60% 지점에 광고 노출
+                var adSlotInfo2 = this._appendMiddleAdvertiseDiv60(tagData, this.adDivId.middle2, gAdContentDaUnitIdForPc2);
+                if (adSlotInfo2) {
+                    adSlotList.push(adSlotInfo2);
+                }
+
+                this._renderAdForDuplication(adSlotList);
+            }
+        }
+    },
+
+    // 본문 30% 지점에 광고 노출
+    _appendMiddleAdvertiseDiv30: function (tagData, adDivId, adDaUnit, componentLengthLimit) {
+        // SE 컴포넌트 조회
+        var seComponents = Array.prototype.slice.call(
+            document.querySelectorAll("#postListBody ._post_wrap:first-of-type .se-main-container .se-component, #postListBody ._post_wrap:first-of-type .__se_component_area .se_component")
+        );
+
+        // SE 컴포넌트 수가 limit(중단: 1/ 중하단 모두: 2) 보다 적으면 return
+        if (componentLengthLimit && (seComponents.length < componentLengthLimit)) {
+            return false;
+        }
+
+        // SE 컴포넌트가 1개이면 해당 컴포넌트 아래에 노출
+        if (seComponents.length === 1) {
+            seComponents[0].parentNode.after(this._makeAdDiv(adDivId));
+            return false;
+        }
+
+        // 30% 지점에 광고 div 노출
+        this._appendMiddleAdvertiseByPosition(adDivId, seComponents, 30);
+        return this._defineSlot(tagData, adDivId, adDaUnit, this._adContentLocationCode);
+    },
+
+    // 본문 60% 지점에 광고 노출
+    _appendMiddleAdvertiseDiv60: function (tagData, adDivId, adDaUnit) {
+        // SE 컴포넌트 조회
+        var seComponents = Array.prototype.slice.call(
+            document.querySelectorAll("#postListBody ._post_wrap:first-of-type .se-main-container .se-component, #postListBody ._post_wrap:first-of-type .__se_component_area .se_component")
+        );
+
+        // SE 컴포넌트 수가 2개 보다 적으면 return
+        if (seComponents.length < 2) {
+            return false;
+        }
+
+        // 60% 지점에 광고 div 노출
+        var validPosition = this._appendMiddleAdvertiseByPosition(adDivId, seComponents, 60);
+        if (!validPosition) {
+            return false;
+        }
+
+        return this._defineSlot(tagData, adDivId, adDaUnit, this._adContentLocationCode);
+    },
+
+    // 본문 {percent}% 지점에 광고 노출
+    _appendMiddleAdvertiseByPosition: function (adDivId, seComponents, percent) {
+        // 전체 컴포넌트 길이 조회
+        var totalHeight = 0;
+        seComponents.forEach(function (el) {
+            totalHeight += el.offsetHeight;
+        });
+
+        // {percent}% 지점에 광고 div 노출
+        var targetHeight = totalHeight * (percent / 100); // 전체 SE 컴포넌트 높이 총합의 {percent}%
+        for (var i in seComponents) {
+            var seComponent = seComponents[i];
+            targetHeight -= this._targetOffset(seComponent); // SE 컴포넌트의 높이만큼 빼기
+
+            // {percent}% 지점에 해당하는 SE 컴포넌트 바로 위에 광고 노출
+            // targetHeight < 0: 전체 SE 컴포넌트 높이 총합의 {percent}% 에서 SE 컴포넌트들의 높이를 하나씩 뺀게 음수가 되는 지점이 {percent}% 지점
+            if (targetHeight < 0 && i > 0) {
+                // 광고 영역 div 노출
+                if (seComponent.previousElementSibling && seComponent.previousElementSibling.classList.contains('ssp-adcontent')) {
+                    return false;
+                }
+                seComponent.parentNode.insertBefore(this._makeAdDiv(adDivId), seComponent);
+                return true;
+            }
+        }
+    },
+
+    // SE 컴포넌트 높이 조회
+    _targetOffset: function (seComponent) {
+        var offSetHeight = seComponent.offsetHeight;
+
+        // lazy loading 등으로 인해 height이 없는 component는 기본값 400으로 한다
+        if (offSetHeight < 1) {
+            return 400;
+        }
+
+        return offSetHeight;
+    },
+
+    // 하단 광고 노출
+    _appendBottomAdvertiseDiv: function (tagData, adDivId, adDaUnit) {
+        var seComponents = Array.prototype.slice.call(
+            document.querySelectorAll("#postListBody ._post_wrap:first-of-type .se-main-container .se-component, #postListBody ._post_wrap:first-of-type .__se_component_area .se_component")
+        );
+        if (seComponents.length === 0) {
+            return;
+        }
+
+        var lastComponent = seComponents[seComponents.length - 1];
+        if (lastComponent && lastComponent.parentNode) {
+            lastComponent.parentNode.appendChild(this._makeAdDiv(adDivId));
+        }
+
+        this._renderAd(tagData, adDivId, adDaUnit, this._adContentLocationCode);
+    },
+
+    // 광고 렌더링 대상 Slot 정의
+    _defineSlot: function (tagData, adDivId, adUnitId, adContentLocation) {
+        var extraOption = this._makeExtraOptionParam(tagData, true, adContentLocation);
+
+        return {
+            adUnitId: adUnitId,
+            adSlotElementId: adDivId,
+            customParam: extraOption,
+        };
+    },
+
+    // 광고 렌더링
+    _renderAd: function (tagData, adDivId, adUnitId, adContentLocation) {
+        var extraOption = this._makeExtraOptionParam(tagData, true, adContentLocation);
+
+        window.gladsdk = window.gladsdk || { cmd: [] };
+        window.gladsdk.cmd.push(function () {
+            window.gladsdk.setGlobalConfig({
+                enablePersistAd: true
+            });
+            window.gladsdk.defineAdSlot({
+                adUnitId: adUnitId,
+                adSlotElementId: adDivId,
+                customParam: extraOption,
+            });
+            window.gladsdk.displayAd(adDivId);
+        });
+    },
+
+    // 광고 렌더링(중복 광고 제어)
+    _renderAdForDuplication: function (adSlotInfoList) {
+        if (!adSlotInfoList || adSlotInfoList.length === 0) {
+            return;
+        }
+        var deduplicationId = 'sspAdContentPc';
+        var maxDeduplicationCount = 2;
+
+        window.gladsdk = window.gladsdk || { cmd: [] };
+        window.gladsdk.cmd.push(function () {
+            window.gladsdk.setGlobalConfig({
+                enablePersistAd: true
+            });
+            var adSlotList = [];
+            for (var i = 0; i < adSlotInfoList.length; i++) {
+                var adSlot = window.gladsdk.defineAdSlot(adSlotInfoList[i]);
+                adSlotList.push(adSlot);
+            }
+            window.gladsdk.setAdDeduplication(deduplicationId, maxDeduplicationCount);
+            var adDedupManager = window.gladsdk.findAdDedupManager(deduplicationId);
+            adDedupManager.displayAds(adSlotList);
+        });
+    },
+
+    // 광고 렌더링 옵션 생성
+    _makeExtraOptionParam: function (tagData, adContentYN, adContentLocation) {
+        for (var i in tagData) {
+            if (tagData[i].logno == gnFirstLogNo) {
+                this.tagNames = decodeURIComponent(tagData[i].tagName);
+            }
+        }
+
+        return {
+            blogId: gBlogId,
+            pid: "" + gnFirstLogNo,
+            gdid: "" + gdid,
+            sessionId: gsSesseionId,
+            publisherRequest: gsBlogOwnerYn,
+            cnt: 1,
+            pk: gsSearchKeyword,
+            pt: this.tagNames,
+            adContentYN: adContentYN,
+            adLocation: adContentLocation,
+            saInfo: gsSaInfo,
+            blogGrade: 5
+        };
+    },
+
+    // 광고 노출 영역 div 생성
+    _makeAdDiv: function (adDivId) {
+        var advertiseWrapDiv = document.createElement('div');
+        advertiseWrapDiv.className = 'ssp-adcontent align_center';
+
+        var advertiseDiv = document.createElement('div');
+        advertiseDiv.id = adDivId;
+        advertiseDiv.className = 'ssp_adcontent_inner';
+
+        advertiseWrapDiv.append(advertiseDiv);
+        return advertiseWrapDiv;
+    }
+});

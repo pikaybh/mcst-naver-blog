@@ -1,0 +1,277 @@
+@charset "UTF-8";
+.blog_content_shopping_ad .shopping_header .icon_ad, .blog_content_shopping_ad .title_area .icon_naver_shopping2::before, .blog_content_shopping_ad .item_thumbnail .icon_best, .blog_content_shopping_ad .btn_area .btn_rolling.prev::after, .blog_content_shopping_ad .btn_area .btn_rolling.next::after {
+	display: inline-block;
+	background-image: url(../img/sp_shopping_content.png);
+	background-size: 122px 78px;
+	background-repeat: no-repeat;
+	vertical-align: top;
+}
+
+/* reset */
+body, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button {
+	margin: 0;
+	padding: 0;
+}
+
+body, input, textarea, select, table {
+	font-family: -apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',Helvetica,'맑은 고딕','Malgun Gothic','돋움',Dotum,sans-serif;
+	font-size: 14px;
+	line-height: 1.25em;
+}
+
+body {
+	-webkit-text-size-adjust: none;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+img, fieldset {
+	border: 0;
+}
+
+img {
+	vertical-align: top;
+}
+
+li {
+	list-style: none;
+}
+
+em, address {
+	font-style: normal;
+}
+
+a {
+	text-decoration: none;
+}
+
+button {
+	cursor: pointer;
+	border-radius: 0;
+}
+
+.blind {
+	overflow: hidden;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	clip: rect(0 0 0 0);
+}
+
+/* PC 블로그 본문광고 쇼핑 */
+.blog_content_shopping_ad {
+	position: relative;
+	width: 450px;
+	margin: 0 auto;
+	background-color: #fff;
+	font-family: 'Helvetica Neue', 'Apple SD Gothic Neo', '돋움', Dotum, sans-serif;
+	color: #000;
+	text-align: left;
+	border: 1px solid #e1e1e1;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
+.blog_content_shopping_ad .shopping_header {
+	position: relative;
+	padding: 13px 55px 10px 16px;
+}
+
+.blog_content_shopping_ad .shopping_header .icon_ad {
+	background-position: -80px -39px;
+	background-repeat: no-repeat;
+	width: 27px;
+	height: 16px;
+	position: absolute;
+	top: 14px;
+	right: 18px;
+}
+
+.blog_content_shopping_ad .shopping_header .title_area {
+	display: inline-block;
+	max-width: 100%;
+	line-height: 20px;
+	vertical-align: top;
+	letter-spacing: -0.9px;
+}
+
+.blog_content_shopping_ad .shopping_header .title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: block;
+	font-family: 'Helvetica Neue', AppleSDGothicNeo-Semibold, '돋움', Dotum, sans-serif;
+	font-size: 15px;
+	color: #141414;
+}
+
+.blog_content_shopping_ad .shopping_header .count {
+	float: right;
+	margin-left: 6px;
+	font-size: 18px;
+	color: #36cf5e;
+}
+
+.blog_content_shopping_ad .title_area .icon_naver_shopping2 {
+	float: left;
+	margin-right: 7px;
+}
+
+.blog_content_shopping_ad .title_area .icon_naver_shopping2::before {
+	background-position: -80px -57px;
+	background-repeat: no-repeat;
+	width: 19px;
+	height: 19px;
+	display: block;
+	margin-top: 1px;
+	content: '';
+}
+
+.blog_content_shopping_ad .title_area .title .category {
+	font-weight: 400;
+	color: #03c75a;
+}
+
+.blog_content_shopping_ad .shopping_content {
+	overflow: hidden;
+	position: relative;
+	margin: 0 16px;
+	padding-bottom: 6px;
+}
+
+.blog_content_shopping_ad .shopping_content .item_list {
+	margin: 0 -5px;
+	font-size: 0;
+	white-space: nowrap;
+}
+
+.blog_content_shopping_ad .shopping_content .item {
+	display: inline-block;
+	width: 132px;
+	margin: 0 5px 10px 5px;
+	font-size: 15px;
+	vertical-align: top;
+}
+
+.blog_content_shopping_ad .shopping_content .item_link {
+	display: block;
+	color: inherit;
+}
+
+.blog_content_shopping_ad .item_thumbnail {
+	overflow: hidden;
+	position: relative;
+	width: 132px;
+	height: 132px;
+	border-radius: 3px;
+}
+
+.blog_content_shopping_ad .item_thumbnail::before {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	border-radius: 3px;
+	background-color: rgba(0, 0, 0, 0.03);
+	content: '';
+}
+
+.blog_content_shopping_ad .item_thumbnail .icon_best {
+	background-position: -80px 0px;
+	background-repeat: no-repeat;
+	width: 42px;
+	height: 19px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.blog_content_shopping_ad .item_information .name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-top: 10px;
+	line-height: 1.033;
+	text-align: center;
+}
+
+.blog_content_shopping_ad .item_information .name .number {
+	padding-right: 4px;
+}
+
+.blog_content_shopping_ad .item_information .name.double_line {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	/* autoprefixer: ignore next */
+	-webkit-box-orient: vertical;
+	word-break: break-all;
+	word-wrap: break-word;
+	line-height: 20px;
+	max-height: 40px;
+	margin: 8px 0 6px;
+	font-size: 14px;
+	color: #222;
+	letter-spacing: -0.8px;
+	text-align: left;
+	white-space: normal;
+}
+
+.blog_content_shopping_ad .item_information .price {
+	line-height: 15px;
+}
+
+.blog_content_shopping_ad .item_information .price .text {
+	padding-left: 1px;
+	font-size: 13px;
+}
+
+.blog_content_shopping_ad .btn_area .btn_rolling {
+	position: absolute;
+	top: 91px;
+	border: 0;
+	background-color: transparent;
+}
+
+.blog_content_shopping_ad .btn_area .btn_rolling.prev {
+	left: 22px;
+}
+
+.blog_content_shopping_ad .btn_area .btn_rolling.prev::after {
+	background-position: -40px -40px;
+	background-repeat: no-repeat;
+	width: 38px;
+	height: 38px;
+	display: block;
+	content: '';
+}
+
+.blog_content_shopping_ad .btn_area .btn_rolling.prev:hover::after {
+	background-position: 0px -40px;
+}
+
+.blog_content_shopping_ad .btn_area .btn_rolling.next {
+	right: 22px;
+}
+
+.blog_content_shopping_ad .btn_area .btn_rolling.next::after {
+	background-position: -40px 0px;
+	background-repeat: no-repeat;
+	width: 38px;
+	height: 38px;
+	display: block;
+	content: '';
+}
+
+.blog_content_shopping_ad .btn_area .btn_rolling.next:hover::after {
+	background-position: 0px 0px;
+}
+
+.blog_content_shopping_ad .btn_area .btn_rolling:disabled {
+	display: none;
+}

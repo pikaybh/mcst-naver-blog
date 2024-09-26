@@ -1,0 +1,226 @@
+@charset "UTF-8";
+.spi_player .spi_lst .spi_lst_release li span, .spi_player .spi_ly_pop .spi_close:after {
+    background-image: url(https://ssl.pstatic.net/static/common/spi/2023/1222/sp_spi_player_pc.png);
+    background-size: 118px 118px;
+}
+
+.spi_player,
+.spi_player ul,
+.spi_player li,
+.spi_player form,
+.spi_player fieldset,
+.spi_player legend,
+.spi_player input {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, ‘Segoe UI’, 'Apple SD Gothic Neo', ‘MalgunGothic’, Arial, sans-serif;
+    font-size: 13px;
+    color: #333;
+}
+
+.spi_player:after {
+    display: block;
+    clear: both;
+    content: "";
+}
+
+.spi_player,
+.spi_player fieldset {
+    border: 0;
+}
+
+.spi_player ul,
+.spi_player li {
+    list-style: none;
+}
+
+.spi_player em {
+    font-style: normal;
+}
+
+.spi_player a {
+    text-decoration: none;
+}
+
+.spi_player a, .spi_player a:hover, .spi_player a:active, .spi_player a:focus, .spi_player a:visited {
+    color: #333;
+}
+
+.spi_player legend {
+    display: none;
+}
+
+.spi_player .spi_lst .spi_lst_release {
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 282px;
+    max-height: 150px;
+    padding: 8px 0 20px 8px;
+    background-color: #fff;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.spi_player .spi_lst .spi_lst_release:after {
+    display: block;
+    clear: both;
+    content: '';
+}
+
+.spi_player .spi_lst .spi_lst_release li {
+    float: left;
+    width: 38px;
+    height: 38px;
+    margin: 12px 0 0 14px;
+}
+
+.spi_player .spi_lst .spi_lst_release li span {
+    display: inline-block;
+    width: 38px;
+    height: 38px;
+    vertical-align: top;
+}
+
+.spi_player .spi_lst .spi_lst_release li strong {
+    overflow: hidden;
+    color: transparent;
+}
+
+.spi_player .spi_lst .spi_lst_release .spi_lnk_blog span {
+    background-position: -40px 0px;
+}
+
+.spi_player .spi_lst .spi_lst_release .spi_lnk_cafe span {
+    background-position: -40px -40px;
+}
+
+.spi_player .spi_lst .spi_lst_release .spi_lnk_bookmark span {
+    background-position: 0px -40px;
+}
+
+.spi_player .spi_lst .spi_lst_release .spi_lnk_keep span {
+    background-position: -80px -40px;
+}
+
+.spi_player .spi_lst .spi_lst_release .spi_lnk_band span {
+    background-position: 0px 0px;
+}
+
+.spi_player .spi_lst .spi_lst_release .spi_lnk_x span {
+    background-position: 0px -80px;
+}
+
+.spi_player .spi_lst .spi_lst_release .spi_lnk_facebook span {
+    background-position: -80px 0px;
+}
+
+.spi_player .spi_lst .spi_lst_release .spi_lnk_copyurl {
+    clear: both;
+    overflow: hidden;
+    display: block;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+}
+
+.spi_player .spi_lst .spi_lst_release .spi_lnk_copyurl .spi_input_copyurl {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+    width: 165px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 12px;
+    background-color: #ebebeb;
+    border-radius: 3px;
+}
+
+.spi_player .spi_lst .spi_lst_release .spi_lnk_copyurl .spi_btn_copyurl {
+    float: left;
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 0 0 7px;
+    background-color: #333;
+    border-radius: 3px;
+    color: #fff;
+    text-align: center;
+    font-weight: 500;
+}
+
+.spi_player .spi_ly_pop {
+    position: absolute;
+    display: none;
+    overflow: hidden;
+    width: 168px;
+    line-height: 16px;
+    padding: 11px 34px 11px 18px;
+    background-color: #fff;
+    border-radius: 14px;
+    font-size: 13px;
+    color: #333;
+    word-break: keep-all;
+    word-wrap: break-word;
+    text-align: left;
+}
+
+.spi_player .spi_ly_pop .spi_dsc {
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.spi_player .spi_ly_pop .spi_btn {
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.spi_player .spi_ly_pop .spi_btn a {
+    float: left;
+    color: #03c75a;
+    text-decoration: underline;
+    vertical-align: top;
+}
+
+.spi_player .spi_ly_pop .spi_btn a ~ a {
+    margin-left: 10px;
+}
+
+.spi_player .spi_ly_pop .spi_close {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 100%;
+    display: block;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.spi_player .spi_ly_pop .spi_close:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-position: -40px -80px;
+    width: 22px;
+    height: 22px;
+    margin: auto;
+    content: '';
+}
+
+.spi_player .spi_ly_pop.spi_pop_subscribe {
+    width: 184px;
+    padding: 11px 18px;
+}
+
+.spi_player .spi_ly_pop.spi_pop_subscribe .spi_close {
+    display: none;
+}

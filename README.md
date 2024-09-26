@@ -1,7 +1,3 @@
-Here’s a sample `README.md` for your repository, explaining the purpose, usage, and structure of the project:
-
----
-
 # Naver Blog Scraper
 
 This project is a Python-based web scraper for crawling blog posts from Naver's blog theme pages using [Playwright](https://playwright.dev/) and [asyncio](https://docs.python.org/3/library/asyncio.html). It scrapes blog post titles and content from multiple pages and saves the results into an Excel file.
@@ -117,6 +113,6 @@ The scraper uses a retry mechanism to handle potential failures (such as timeout
 
 This project is licensed under the MIT License.
 
----
+## Author
 
-- Author: @pikaybh
+- @pikaybh
